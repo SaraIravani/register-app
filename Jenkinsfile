@@ -32,7 +32,7 @@ pipeline {
                script {
                    def customWorkspace = "/home/ubuntu/workspace/register-app-ci/server" // Update to the correct module path
                    dir(customWorkspace) {
-                       withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
+                       withSonarQubeEnv(credentialsId: 'jenkins-sonar-token') {
                            sh "mvn clean install sonar:sonar"
                 }
             }
