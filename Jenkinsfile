@@ -27,15 +27,26 @@ pipeline {
                  sh "mvn test"
            }
        }
-        stage("SonarQube Analysis"){
-           steps {
-	           script {
-		        withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') { 
-                        sh "mvn clean install sonar:sonar"
-		        }
-	           }	
-           }
-       }
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                     def customWorkspace = "/home/ubuntu/workspace/register-app-ci"
+                     dir(customWorkspace) {
+                         echo "Creating workspace directory..."
+                         sh "mkdir -p ${customWorkspace}"
+                     }
+                     sleep 5 // Introduce a 5-second delay
+                     ws(customWorkspace) {
+                         withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
+                             echo "Running SonarQube analysis..."
+                             sh "mvn clean install sonar:sonar"
+                             echo "SonarQube analysis completed."
+                }
+            }
+        }
+    }
+}
+
 	stage("Quality Gate"){
            steps {
                script {
