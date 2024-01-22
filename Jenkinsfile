@@ -27,18 +27,15 @@ pipeline {
                  sh "mvn test"
            }
        }
-       stage('SonarQube Analysis') {
+        stage("SonarQube Analysis"){
            steps {
-               script {
-                   def customWorkspace = "/home/ubuntu/workspace/register-app-ci/server" // Update to the correct module path
-                   dir(customWorkspace) {
-                       withSonarQubeEnv(credentialsId: 'jenkins-sonar-token') {
-                           sh "mvn clean install sonar:sonar"
-                }
-            }
-        }
-    }
-}
+	           script {
+		        withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') { 
+                        sh "mvn sonar: sonar"
+		        }
+	           }	
+           }
+       }
 
      }
 }
