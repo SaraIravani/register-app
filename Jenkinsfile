@@ -39,7 +39,7 @@ pipeline {
                      ws(customWorkspace) {
                          withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
                              echo "Running SonarQube analysis..."
-                             sh "mvn clean install sonar:sonar"
+                             sh "mvn sonar:sonar"
                              echo "SonarQube analysis completed."
                 }
             }
