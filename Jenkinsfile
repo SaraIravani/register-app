@@ -39,7 +39,7 @@ pipeline {
                      ws(customWorkspace) {
                          withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
                              echo "Running SonarQube analysis..."
-                             sh "mvn sonar:sonar"
+                             sh "mvn clean install sonar:sonar -f /home/ubuntu/workspace/register-app-ci"
                              echo "SonarQube analysis completed."
                 }
             }
